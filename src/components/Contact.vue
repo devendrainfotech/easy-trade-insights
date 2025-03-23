@@ -20,9 +20,46 @@ const formData = ref({
   message: ''
 })
 
-const handleSubmit = () => {
-  // Handle form submission logic here
-  console.log('Form submitted:', formData.value)
+const submitStatus = ref({
+  loading: false,
+  success: false,
+  error: false
+})
+
+const handleSubmit = async () => {
+  submitStatus.value.loading = true
+  submitStatus.value.success = false
+  submitStatus.value.error = false
+
+  try {
+    const response = await fetch('https://formsubmit.co/ajax/easytradeadvisor@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(formData.value)
+    })
+
+    if (response.ok) {
+      submitStatus.value.success = true
+      formData.value = {
+        name: '',
+        email: '',
+        phone: '',
+        segment: '',
+        capital: '',
+        message: ''
+      }
+    } else {
+      throw new Error('Form submission failed')
+    }
+  } catch (error) {
+    submitStatus.value.error = true
+    console.error('Form submission error:', error)
+  } finally {
+    submitStatus.value.loading = false
+  }
 }
 </script>
 
@@ -95,6 +132,12 @@ const handleSubmit = () => {
         <div class="bg-white rounded-lg p-8 shadow-xl border border-gray-200">
           <h2 class="text-3xl font-bold text-gray-900 mb-8">Send us a Message</h2>
           <form @submit.prevent="handleSubmit" class="space-y-6">
+            <div v-if="submitStatus.success" class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <span class="block sm:inline">Thank you for your message! We'll get back to you soon.</span>
+            </div>
+            <div v-if="submitStatus.error" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <span class="block sm:inline">Sorry, there was an error submitting your message. Please try again.</span>
+            </div>
             <div>
               <label for="name" class="block text-sm font-medium text-gray-700 text-left">Name</label>
               <input
@@ -168,9 +211,10 @@ const handleSubmit = () => {
 
             <button
               type="submit"
-              class="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition-colors duration-300 h-12"
+              :disabled="submitStatus.loading"
+              class="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition-colors duration-300 h-12 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Send Message
+              {{ submitStatus.loading ? 'Sending...' : 'Send Message' }}
             </button>
           </form>
         </div>
