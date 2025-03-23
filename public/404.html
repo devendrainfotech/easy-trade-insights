@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+      // Get the current path
+      const path = window.location.pathname;
+      // Remove the repository name from the path if it exists
+      const cleanPath = path.replace(/^\/easy-trade-insights/, '');
+      // Redirect to the main app with the current path using hash routing
+      window.location.href = '/easy-trade-insights/#' + cleanPath;
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html> 
