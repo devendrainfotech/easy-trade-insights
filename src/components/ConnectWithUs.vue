@@ -22,7 +22,7 @@ const handleSubmit = async () => {
   submitStatus.value.error = false
 
   try {
-    const response = await fetch('https://formsubmit.co/ajax/easytradeadvisor@gmail.com', {
+    const response = await fetch('https://formsubmit.co/ajax/easytradeadvisor1@gmail.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

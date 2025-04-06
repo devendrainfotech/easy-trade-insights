@@ -32,7 +32,7 @@ const handleSubmit = async () => {
   submitStatus.value.error = false
 
   try {
-    const response = await fetch('https://formsubmit.co/ajax/easytradeadvisor@gmail.com', {
+    const response = await fetch('https://formsubmit.co/ajax/easytradeadvisor1@gmail.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const handleSubmit = async () => {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <p class="text-gray-500 text-left flex-1">easytradeadvisor@gmail.com</p>
+              <p class="text-gray-500 text-left flex-1">easytradeadvisor1@gmail.com</p>
             </div>
 
             <div class="flex items-center space-x-4">
